@@ -9,4 +9,5 @@ FROM gcr.io/distroless/static@sha256:d6fa9db9548b5772860fecddb11d84f9ebd7e0321c0
 
 USER nonroot:nonroot
 COPY --from=builder --chown=nonroot:nonroot /go/src/dartsly-match-service /
+COPY --from=builder migrations /migrations
 CMD ["/app"]
