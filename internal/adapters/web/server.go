@@ -1,6 +1,7 @@
 package web
 
 import (
+	"log"
 	"net/http"
 
 	matches "github.com/beschlz/dartsly-match-service/internal/core/ports"
@@ -15,7 +16,11 @@ type App struct {
 
 func (app *App) initRoutes(matchService matches.MatchService) {
 	app.chiRouter.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(matchService.CreateMatch()))
+		_, err := w.Write([]byte(matchService.CreateMatch()))
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 }
 
@@ -33,5 +38,9 @@ func NewApp(port string, matchService matches.MatchService) *App {
 
 func (app *App) Run() {
 
-	http.ListenAndServe(app.Port, app.chiRouter)
+	err := http.ListenAndServe(app.Port, app.chiRouter)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
