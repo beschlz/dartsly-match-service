@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/beschlz/dartsly-match-service/internal/adapters/persistance"
 	"github.com/beschlz/dartsly-match-service/internal/adapters/web"
-	matches "github.com/beschlz/dartsly-match-service/internal/core/services"
+	"github.com/beschlz/dartsly-match-service/internal/core/matches"
 )
 
 func main() {
