@@ -25,7 +25,7 @@ func (app *App) PostMatches(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		switch {
-		case errors.Is(err, domain.InvalidMatchSetting):
+		case errors.Is(err, domain.ErrInvalidMatchSetting):
 			http.Error(w, InternalServerError, http.StatusBadRequest)
 			return
 		default:
