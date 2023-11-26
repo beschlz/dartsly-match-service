@@ -5,34 +5,18 @@ import (
 	"net/http"
 
 	"github.com/beschlz/dartsly-match-service/internal/core/matches"
-	"github.com/beschlz/dartsly-match-service/internal/core/matches/domain"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
 type App struct {
-	Port      string
-	chiRouter *chi.Mux
+	Port         string
+	chiRouter    *chi.Mux
+	matchService matches.MatchService
 }
 
 func (app *App) initRoutes(matchService matches.MatchService) {
-
-	app.chiRouter.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		match, err := (matchService.CreateMatch(domain.MatchCreationRequest{
-			PlayerCount:      2,
-			CheckOutSettings: "singleout",
-		}))
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		_, err = w.Write([]byte(match.CheckoutSettings))
-
-		if err != nil {
-			log.Fatal(err)
-		}
-	})
+	app.chiRouter.Post("/matches", app.PostMatches)
 }
 
 func NewApp(port string, matchService matches.MatchService) *App {
@@ -42,6 +26,7 @@ func NewApp(port string, matchService matches.MatchService) *App {
 	}
 
 	app.chiRouter.Use(middleware.Logger)
+	app.matchService = matchService
 	app.initRoutes(matchService)
 
 	return app

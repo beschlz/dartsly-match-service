@@ -25,7 +25,14 @@ func NewCheckOutSetting(setting CheckOutSetting) (CheckOutSetting, error) {
 	return CheckOutSetting(setting), nil
 }
 
+type MatchID string
+
+func NewMatchId(id string) MatchID {
+	return MatchID(id)
+}
+
 type Match struct {
+	MatchID          MatchID
 	PlayerCount      PlayerCount
 	CheckoutSettings CheckOutSetting
 }

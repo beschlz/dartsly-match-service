@@ -9,6 +9,6 @@ func NewMatchRepo() matches.MatchRepo {
 	return &MatchRepo{}
 }
 
-func (m *MatchRepo) CreateMatch() {
-
+func (m *MatchRepo) CreateMatch() matches.MatchID {
+	return matches.NewMatchID("123")
 }

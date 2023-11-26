@@ -8,10 +8,16 @@ import (
 
 var InvalidMatchConfiguration = errors.New("invalid match configuration")
 
+type MatchID string
+
+func NewMatchID(id string) MatchID {
+	return MatchID(id)
+}
+
 type MatchRepo interface {
-	CreateMatch()
+	CreateMatch() MatchID
 }
 
 type MatchService interface {
-	CreateMatch(request domain.MatchCreationRequest) (domain.Match, error)
+	CreateMatch(request domain.MatchCreationRequest) (*domain.Match, error)
 }
