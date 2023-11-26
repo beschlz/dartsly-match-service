@@ -4,24 +4,19 @@ import (
 	"log"
 	"net/http"
 
-	matches "github.com/beschlz/dartsly-match-service/internal/core/ports"
+	"github.com/beschlz/dartsly-match-service/internal/core/matches"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
 type App struct {
-	Port      string
-	chiRouter *chi.Mux
+	Port         string
+	chiRouter    *chi.Mux
+	matchService matches.MatchService
 }
 
 func (app *App) initRoutes(matchService matches.MatchService) {
-	app.chiRouter.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		_, err := w.Write([]byte(matchService.CreateMatch()))
-
-		if err != nil {
-			log.Fatal(err)
-		}
-	})
+	app.chiRouter.Post("/matches", app.PostMatches)
 }
 
 func NewApp(port string, matchService matches.MatchService) *App {
@@ -31,6 +26,7 @@ func NewApp(port string, matchService matches.MatchService) *App {
 	}
 
 	app.chiRouter.Use(middleware.Logger)
+	app.matchService = matchService
 	app.initRoutes(matchService)
 
 	return app

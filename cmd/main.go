@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/beschlz/dartsly-match-service/internal/adapters/persistance"
+	"github.com/beschlz/dartsly-match-service/internal/adapters/inmemory"
 	"github.com/beschlz/dartsly-match-service/internal/adapters/web"
-	matches "github.com/beschlz/dartsly-match-service/internal/core/services"
+	"github.com/beschlz/dartsly-match-service/internal/core/matches"
 )
 
 func main() {
 
-	matchRepo := persistance.NewMatchRepo()
+	matchRepo := inmemory.NewMatchRepo()
 	matchService := matches.NewMatchService(matchRepo)
 
 	app := web.NewApp(":8080", matchService)

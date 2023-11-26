@@ -1,14 +1,14 @@
 package persistance
 
-import "github.com/beschlz/dartsly-match-service/internal/ports"
+import "github.com/beschlz/dartsly-match-service/internal/core/matches"
 
 type MatchRepo struct {
 }
 
-func NewMatchRepo() ports.MatchRepo {
+func NewMatchRepo() matches.MatchRepo {
 	return &MatchRepo{}
 }
 
-func (m *MatchRepo) CreateMatch() {
-
+func (m *MatchRepo) CreateMatch() matches.MatchID {
+	return matches.NewMatchID("123")
 }
