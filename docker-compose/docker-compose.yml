@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+  match-service:
+    build: ./..
+    ports:
+      - "8080:8080"
+
+volumes:
+  redis-data:
+    external: true
+      
+    
+
