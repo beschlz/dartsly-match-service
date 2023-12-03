@@ -20,6 +20,9 @@ func TestCreatedMatchIsTheSameAsSpecified(t *testing.T) {
 	matchRequest := domain.MatchCreationRequest{
 		PlayerCount:      2,
 		CheckOutSettings: "singleout",
+		Points:           501,
+		Sets:             3,
+		Legs:             7,
 	}
 
 	createdMatch, err := service.CreateMatch(matchRequest)
@@ -39,6 +42,9 @@ func TestMatchShouldNotBeCreate(t *testing.T) {
 	invalidMatchSettings := domain.MatchCreationRequest{
 		PlayerCount:      -1,
 		CheckOutSettings: "singleout2",
+		Points:           501,
+		Sets:             3,
+		Legs:             7,
 	}
 
 	_, err := service.CreateMatch(invalidMatchSettings)

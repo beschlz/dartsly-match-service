@@ -11,11 +11,16 @@ type Match struct {
 	PlayerCount      PlayerCount
 	CheckoutSettings CheckOutSetting
 	Points           Points
+	Sets             Sets
+	Legs             Legs
 }
 
 type MatchCreationRequest struct {
 	PlayerCount      int
 	CheckOutSettings string
+	Points           Points
+	Sets             Sets
+	Legs             Legs
 }
 
 func NewMatch(request *MatchCreationRequest) (*Match, error) {
