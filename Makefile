@@ -30,3 +30,7 @@ test:
 run:
 	go run cmd/main.go
 
+.PHONY: up
+up:
+	docker-compose -f ./docker-compose/docker-compose.yml up --build --force-recreate -d match-service
+
