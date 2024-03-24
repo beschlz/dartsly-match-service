@@ -81,6 +81,17 @@ jobs:
               push: true
               tags: |
                 docker.pkg.github.com/${{ github.repository }}/service:${{ github.sha }}
+
+    scan_container:
+      runs-on: ubuntu-latest
+      name: Scan Container
+      needs: [build_container]
+      steps:
+        - name: Checkout Project
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.ref }}
+            
     deploy:
         runs-on: ubuntu-latest
         name: Deploy
